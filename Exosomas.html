@@ -258,14 +258,16 @@ library(edgeR)</code></pre>
 </div>
 <div id="directorios-de-trabajo" class="section level3">
 <h3>Directorios de trabajo</h3>
-<pre class="r"><code>dir &lt;- setwd(&quot;~/Documentos/Exosomas/Exosomas&quot;)
+<pre class="r"><code>setwd(&quot;~/Documentos/Exosomas/Exosomas&quot;)
+dir &lt;- setwd(&quot;~/Documentos/Exosomas/Exosomas&quot;)
 datadir &lt;- file.path(dir, &quot;Input&quot;)
 resultsdir &lt;- file.path(dir, &quot;Results&quot;)</code></pre>
 </div>
 <div id="lectura-de-los-datos" class="section level3">
 <h3>Lectura de los datos</h3>
 <pre class="r"><code>count&lt;-read.table(file=&quot;RCadj_full_exo1.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)
-quality&lt;-read.table(file=&quot;value_exo1.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)</code></pre>
+quality&lt;-read.table(file=&quot;value_exo1.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)
+metadata&lt;-read.table(file=&quot;Metadatos.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)</code></pre>
 </div>
 <div id="formato" class="section level3">
 <h3>Formato</h3>
@@ -275,9 +277,13 @@ count_exo&lt;-count[-1]
 rownames(quality) &lt;- quality[,1]
 quality_exo&lt;-quality[-1]
 
+metadata_exo&lt;-metadata[-1]
+
 rownames(quality_exo)&lt;-c(&quot;s32&quot;,&quot;s28&quot;,&quot;s21&quot;,&quot;s19&quot;,&quot;s24&quot;,&quot;s2&quot;,&quot;s4&quot;,&quot;s25&quot;,&quot;s34&quot;,&quot;s7&quot;, &quot;s16&quot;,&quot;s8&quot;,&quot;brn&quot;,&quot;s26&quot;,&quot;s12&quot;, &quot;s27&quot;, &quot;s35&quot;, &quot;s17&quot;, &quot;s29&quot;, &quot;s23&quot;, &quot;s10&quot;,&quot;s3&quot;, &quot;s15&quot;,&quot;s1&quot;, &quot;s9&quot;, &quot;s13&quot;, &quot;s18&quot;, &quot;s33&quot;, &quot;s5&quot;, &quot;s31&quot;, &quot;s6&quot;, &quot;s20&quot;,&quot;s11&quot;, &quot;s22&quot;, &quot;s14&quot;, &quot;s30&quot;)
 
-colnames(count_exo)&lt;-c(&quot;s32&quot;,&quot;s28&quot;,&quot;s21&quot;,&quot;s19&quot;,&quot;s24&quot;,&quot;s2&quot;,&quot;s4&quot;,&quot;s25&quot;,&quot;s34&quot;,&quot;s7&quot;, &quot;s16&quot;,&quot;s8&quot;,&quot;brn&quot;,&quot;s26&quot;,&quot;s12&quot;, &quot;s27&quot;, &quot;s35&quot;, &quot;s17&quot;, &quot;s29&quot;, &quot;s23&quot;, &quot;s10&quot;,&quot;s3&quot;, &quot;s15&quot;,&quot;s1&quot;, &quot;s9&quot;, &quot;s13&quot;, &quot;s18&quot;, &quot;s33&quot;, &quot;s5&quot;, &quot;s31&quot;, &quot;s6&quot;, &quot;s20&quot;,&quot;s11&quot;, &quot;s22&quot;, &quot;s14&quot;, &quot;s30&quot;)</code></pre>
+colnames(count_exo)&lt;-c(&quot;s32&quot;,&quot;s28&quot;,&quot;s21&quot;,&quot;s19&quot;,&quot;s24&quot;,&quot;s2&quot;,&quot;s4&quot;,&quot;s25&quot;,&quot;s34&quot;,&quot;s7&quot;, &quot;s16&quot;,&quot;s8&quot;,&quot;brn&quot;,&quot;s26&quot;,&quot;s12&quot;, &quot;s27&quot;, &quot;s35&quot;, &quot;s17&quot;, &quot;s29&quot;, &quot;s23&quot;, &quot;s10&quot;,&quot;s3&quot;, &quot;s15&quot;,&quot;s1&quot;, &quot;s9&quot;, &quot;s13&quot;, &quot;s18&quot;, &quot;s33&quot;, &quot;s5&quot;, &quot;s31&quot;, &quot;s6&quot;, &quot;s20&quot;,&quot;s11&quot;, &quot;s22&quot;, &quot;s14&quot;, &quot;s30&quot;)
+
+rownames(metadata)&lt;-c(&quot;s32&quot;,&quot;s28&quot;,&quot;s21&quot;,&quot;s19&quot;,&quot;s24&quot;,&quot;s2&quot;,&quot;s4&quot;,&quot;s25&quot;,&quot;s34&quot;,&quot;s7&quot;, &quot;s16&quot;,&quot;s8&quot;,&quot;brn&quot;,&quot;s26&quot;,&quot;s12&quot;, &quot;s27&quot;, &quot;s35&quot;, &quot;s17&quot;, &quot;s29&quot;, &quot;s23&quot;, &quot;s10&quot;,&quot;s3&quot;, &quot;s15&quot;,&quot;s1&quot;, &quot;s9&quot;, &quot;s13&quot;, &quot;s18&quot;, &quot;s33&quot;, &quot;s5&quot;, &quot;s31&quot;, &quot;s6&quot;, &quot;s20&quot;,&quot;s11&quot;, &quot;s22&quot;, &quot;s14&quot;, &quot;s30&quot;)</code></pre>
 <pre class="r"><code>str(count_exo)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    1989 obs. of  36 variables:
 ##  $ s32: num  0 0 0 0 0 0 0 0 0 0 ...

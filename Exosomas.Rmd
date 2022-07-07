@@ -25,6 +25,7 @@ library(DESeq2)
 
 ### Directorios de trabajo
 ```{r}
+setwd("~/Documentos/Exosomas/Exosomas")
 dir <- setwd("~/Documentos/Exosomas/Exosomas")
 datadir <- file.path(dir, "Input")
 resultsdir <- file.path(dir, "Results")
@@ -34,6 +35,7 @@ resultsdir <- file.path(dir, "Results")
 ```{r}
 count<-read.table(file="RCadj_full_exo1.tsv", header = TRUE, sep = "\t")
 quality<-read.table(file="value_exo1.tsv", header = TRUE, sep = "\t")
+metadata<-read.table(file="Metadatos.tsv", header = TRUE, sep = "\t")
 ```
 
 ### Formato
@@ -44,10 +46,13 @@ count_exo<-count[-1]
 rownames(quality) <- quality[,1]
 quality_exo<-quality[-1]
 
+metadata_exo<-metadata[-1]
+
 rownames(quality_exo)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
 
 colnames(count_exo)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
 
+rownames(metadata)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
 ```
 
 
@@ -74,5 +79,15 @@ boxplot(count_exo, ylab="Log2-CPM",las=2, xlab="", cex.axis=0.8, main="Boxplots 
 
 ```{r}
 plotMDS(count_exo, main="MDS", cex=0.7)
+```
+
+
+```{r}
+datos<-DESeqDataSetFromMatrix(countData = round(count_exo), colData= metadata_exo, design = ~ 1)
+```
+
+```{r}
+PCAdata <- prcomp(t(assay(datos)))
+autoplot(PCAdata, data = metadatah,colour = "Condition", label = FALSE)
 ```
 
