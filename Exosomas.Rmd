@@ -15,7 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(edgeR)
 library(DESeq2)
-
+library("factoextra")
+library("FactoMineR")
+library(pheatmap)
 ```
 
 
@@ -29,8 +31,9 @@ resultsdir <- file.path(dir, "Results")
 
 ### Lectura de los datos
 ```{r}
-count<-read.table(file="RCadj_full_exo1.tsv", header = TRUE, sep = "\t")
-quality<-read.table(file="value_exo1.tsv", header = TRUE, sep = "\t")
+count<-read.table(file="RCadj_fullHsa.tsv", header = TRUE, sep = "\t")
+quality<-read.table(file="valueHsa.tsv", header = TRUE, sep = "\t")
+metadata<-read.table(file="Metadatos.tsv", header = TRUE, sep = "\t")
 ```
 
 ### Formato
@@ -41,9 +44,13 @@ count_exo<-count[-1]
 rownames(quality) <- quality[,1]
 quality_exo<-quality[-1]
 
+metadata_exo<-metadata[-1]
+
 rownames(quality_exo)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
 
 colnames(count_exo)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
+
+rownames(metadata)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
 
 ```
 
@@ -71,5 +78,31 @@ boxplot(count_exo, ylab="Log2-CPM",las=2, xlab="", cex.axis=0.8, main="Boxplots 
 
 ```{r}
 plotMDS(count_exo, main="MDS", cex=0.7)
+```
+
+
+```{r}
+datos<-DESeqDataSetFromMatrix(countData = round(count_exo), colData= metadata_exo, design = ~ 1)
+```
+
+```{r}
+PCAdata <- prcomp(t(assay(datos)))
+fviz_pca_ind(PCAdata, repel = TRUE)
+```
+
+
+```{r}
+clusters2 <- hclust(dist( t( assay(datos) ) ), method ="ward.D")
+plot(clusters2)
+```
+
+
+```{r}
+
+sampleDists <- dist( t( assay(datos) ) )
+sampleDistMatrix <- as.matrix( sampleDists)
+pheatmap(sampleDistMatrix,
+         clustering_distance_rows=sampleDists,
+         clustering_distance_cols=sampleDists, main = "Sample Distance Matrix ")
 ```
 
