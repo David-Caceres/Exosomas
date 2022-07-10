@@ -445,14 +445,20 @@ library(pheatmap)</code></pre>
 </div>
 <div id="directorios-de-trabajo" class="section level3">
 <h3>Directorios de trabajo</h3>
-<pre class="r"><code>dir &lt;- setwd(&quot;~/Documentos/Exosomas/Exosomas&quot;)
+<pre class="r"><code>setwd(&quot;~/Documentos/Exosomas/Exosomas&quot;)
+dir &lt;- setwd(&quot;~/Documentos/Exosomas/Exosomas&quot;)
 datadir &lt;- file.path(dir, &quot;Input&quot;)
 resultsdir &lt;- file.path(dir, &quot;Results&quot;)</code></pre>
 </div>
 <div id="lectura-de-los-datos" class="section level3">
 <h3>Lectura de los datos</h3>
+<<<<<<< HEAD
 <pre class="r"><code>count&lt;-read.table(file=&quot;RCadj_fullHsa.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)
 quality&lt;-read.table(file=&quot;valueHsa.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)
+=======
+<pre class="r"><code>count&lt;-read.table(file=&quot;RCadj_full_exo1.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)
+quality&lt;-read.table(file=&quot;value_exo1.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)
+>>>>>>> fde432a842070f1a0c8ec1dccd9b83224e638dbd
 metadata&lt;-read.table(file=&quot;Metadatos.tsv&quot;, header = TRUE, sep = &quot;\t&quot;)</code></pre>
 </div>
 <div id="formato" class="section level3">
