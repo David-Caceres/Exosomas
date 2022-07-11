@@ -32,13 +32,13 @@ resultsdir <- file.path(dir, "Results")
 
 ### Lectura de los datos
 ```{r}
-<<<<<<< HEAD
+
 count<-read.table(file="RCadj_fullHsa.tsv", header = TRUE, sep = "\t")
 quality<-read.table(file="valueHsa.tsv", header = TRUE, sep = "\t")
-=======
+
 count<-read.table(file="RCadj_full_exo1.tsv", header = TRUE, sep = "\t")
 quality<-read.table(file="value_exo1.tsv", header = TRUE, sep = "\t")
->>>>>>> fde432a842070f1a0c8ec1dccd9b83224e638dbd
+
 metadata<-read.table(file="Metadatos.tsv", header = TRUE, sep = "\t")
 ```
 
@@ -57,10 +57,7 @@ rownames(quality_exo)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7
 colnames(count_exo)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
 
 rownames(metadata)<-c("s32","s28","s21","s19","s24","s2","s4","s25","s34","s7", "s16","s8","brn","s26","s12", "s27", "s35", "s17", "s29", "s23", "s10","s3", "s15","s1", "s9", "s13", "s18", "s33", "s5", "s31", "s6", "s20","s11", "s22", "s14", "s30")
-<<<<<<< HEAD
 
-=======
->>>>>>> fde432a842070f1a0c8ec1dccd9b83224e638dbd
 ```
 
 
@@ -96,7 +93,6 @@ datos<-DESeqDataSetFromMatrix(countData = round(count_exo), colData= metadata_ex
 
 ```{r}
 PCAdata <- prcomp(t(assay(datos)))
-<<<<<<< HEAD
 fviz_pca_ind(PCAdata, repel = TRUE)
 ```
 
@@ -114,8 +110,6 @@ sampleDistMatrix <- as.matrix( sampleDists)
 pheatmap(sampleDistMatrix,
          clustering_distance_rows=sampleDists,
          clustering_distance_cols=sampleDists, main = "Sample Distance Matrix ")
-=======
-autoplot(PCAdata, data = metadatah,colour = "Condition", label = FALSE)
->>>>>>> fde432a842070f1a0c8ec1dccd9b83224e638dbd
+
 ```
 
