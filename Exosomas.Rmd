@@ -32,11 +32,13 @@ resultsdir <- file.path(dir, "Results")
 
 ### Lectura de los datos
 ```{r}
+
 count<-read.table(file="RCadj_fullHsa.tsv", header = TRUE, sep = "\t")
 quality<-read.table(file="valueHsa.tsv", header = TRUE, sep = "\t")
 
 count<-read.table(file="RCadj_full_exo1.tsv", header = TRUE, sep = "\t")
 quality<-read.table(file="value_exo1.tsv", header = TRUE, sep = "\t")
+
 metadata<-read.table(file="Metadatos.tsv", header = TRUE, sep = "\t")
 ```
 
