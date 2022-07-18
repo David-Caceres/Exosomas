@@ -1,5 +1,6 @@
 
 Sample Name	Species name	short name	protocol	detected adapter 	Random Adapter
+Bases (5' - 3')
 180322-190603_Brain_S36.fastq.gz	Homo sapiens	hsa	Bioo	TGGAATTCTCGGGTGCCAAGGG	4 - 4
 32140243_EXO_S2.fastq.gz	Homo sapiens	hsa	Bioo	TGGAATTCTCGGGTGCCAAGGG	4 - 4
 32141753_EXO_S10.fastq.gz	Homo sapiens	hsa	Bioo	TGGAATTCTCGGGTGCCAAGGG	4 - 4
